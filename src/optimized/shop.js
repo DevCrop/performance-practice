@@ -12,6 +12,7 @@ const loadProductModule = () => {
 
 const addProduct = async (event) => {
   try {
+    event.preventDefault();
     const mod = await loadProductModule();
     mod.addProduct(event);
   } catch (error) {

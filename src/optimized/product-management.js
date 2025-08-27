@@ -1,24 +1,25 @@
-import { renderProducts } from "./rendering";
+import { updateProducts } from "./rendering";
 import { products as prods } from "./products";
 
 let products = prods;
 
 export function deleteProduct(prodId) {
   const updatedProducts = [];
+  let deleteProduct;
   for (const prod of products) {
     if (prod.id !== prodId) {
       updatedProducts.push(prod);
+    } else {
+      deleteProduct = prod;
     }
   }
   products = updatedProducts;
-  renderProducts(products, deleteProduct);
+  updateProducts(deleteProduct, prodId, deleteProduct, false);
 }
 
 export function addProduct(event) {
-  event.preventDefault();
   const titleEl = document.querySelector("#new-product #title");
   const priceEl = document.querySelector("#new-product #price");
-
   const title = titleEl.value;
   const price = priceEl.value;
 
@@ -34,5 +35,5 @@ export function addProduct(event) {
   };
 
   products.unshift(newProduct);
-  renderProducts(products, deleteProduct);
+  updateProducts(newProduct, newProduct.id, deleteProduct, true);
 }
